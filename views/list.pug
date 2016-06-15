@@ -1,0 +1,6 @@
+extends ./layout
+
+block content
+  ul
+    li(ng-repeat='comment in comments')
+      span {{comment.content}}
