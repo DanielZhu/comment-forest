@@ -1,6 +1,20 @@
 extends ./layout
 
+block headerLinks
+    link(rel='stylesheet', href='/css/list.css')
+
 block content
-  ul
-    li(ng-repeat='comment in comments')
-      span {{comment.content}}
+  ul.comment-list
+    li.comment-item(ng-repeat='comment in comments', data-id='{{comment.id}}' data-shopid='{{comment.shopId}}')
+      div.content.clearfix(ng-bind-html='{{comment.content}}')
+      div.user-submit.clearfix
+        div.rate
+          div {{comment.star}} 星
+          ul.rsts
+            li.rst(ng-repeat='rst in comment.rst')
+              span {{rst.title}}：{{rst.star}}
+        div.reveal
+          a(href='http://www.dianping.com/member/{{comment.rev.userId}}', target='_blank')
+            img.avatar(src='{{comment.rev.avatar}}')
+      div.tags
+        span.tag 团

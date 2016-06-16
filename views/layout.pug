@@ -1,8 +1,9 @@
 doctype html
 html(lang="en", ng-app="commentForest")
-  header
+  head
     title Comment Forest!
-    link(ref='stylesheet', href='css/style.css')
+    link(rel='stylesheet', href='/css/style.css')
+    block headerLinks
   body(ng-controller="MainCtrl")
     .container
         block content
