@@ -55,7 +55,7 @@ wsServer.on('request', function (req) {
   setInterval(function () {
     connection.sendUTF(JSON.stringify({count: count}));
     count++;
-  }, Math.random() * 1000 * 5);
+  }, Math.random() * 1000 * 20);
 
   connection.on('message', function (msg) {
     if (msg.type === 'utf8') {
