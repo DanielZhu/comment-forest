@@ -11,12 +11,14 @@ $color-orange = orange
   list-style: none
   margin: 0 10px
   .comment-item
-    color: $color-gray9
-    margin-bottom: 10px
+    color: $color-gray6
+    margin-bottom: 15px
     padding: 15px
     background-color: $color-white
     box-sizing: border-box
     position: relative
+    &:first-child
+      margin-top: 15px
     &.new-item
       background-color: #FAFFE7
     .content
@@ -26,14 +28,23 @@ $color-orange = orange
       letter-spacing: 0.5px
     .user-submit
       position: relative
-      width: 100%
+      width: 40%
+      color: $color-grayc
       margin-top: 15px
       font-size: 12px
-      color: $color-grayc
+      display: inline-block
+      .reveal
+        line-height: 30px
+        margin-bottom: 10px
+        .reveal-name
+          display: inline-block
+          margin-left: 15px
+        .avatar
+          width: 30px
+          height: 30px
+          border-radius: 50%
+          vertical-align: middle
       .rate
-        max-width: 80%
-        float: left
-        text-align: left
         .rate-star
           position: relative
           display: inline-block
@@ -57,16 +68,30 @@ $color-orange = orange
             display: inline
             span
               padding-right: 5px
-      .reveal
-        max-width: 20%
-        float: right
-        text-align: right
-        line-height: 30px
-        .avatar
-          width: 30px
-          height: 30px
-          border-radius: 50%
-          vertical-align: middle
-        padding: 2px
-        box-sizing: content-box
-        font-size: 12px
+    .shop-meta
+      position: relative
+      width: 60%
+      color: $color-gray9
+      margin-top: 15px
+      font-size: 12px
+      display: inline-block
+      text-align: right
+      .shop-name
+        font-size: 14px
+        color: $color-gray3
+        padding-bottom: 5px
+      .shop-preview
+        width: 96px
+        height: 96px
+      .shop-comment
+        position: relative
+        width: 100%
+        .shop-price
+          margin-right: 5px
+      .tags
+        list-style: none
+        padding: 0
+        .tag
+          display: inline
+          span
+            padding-right: 5px

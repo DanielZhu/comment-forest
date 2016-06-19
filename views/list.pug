@@ -4,17 +4,31 @@ block headerLinks
     link(rel='stylesheet', href='/css/list.css')
 
 block content
-  ul.comment-list
-    li.comment-item(ng-repeat='comment in comments', data-id='{{comment.id}}' data-shopid='{{comment.shopId}}')
-      div.content.clearfix(ng-bind-html='{{comment.content}}')
-      div.user-submit.clearfix
-        div.rate
-          div {{comment.star}} 星
-          ul.rsts
-            li.rst(ng-repeat='rst in comment.rst')
-              span {{rst.title}}：{{rst.star}}
-        div.reveal
-          a(href='http://www.dianping.com/member/{{comment.rev.userId}}', target='_blank')
-            img.avatar(src='{{comment.rev.avatar}}')
-      div.tags
-        span.tag 团
+  toast.global-toast.toast(type="success", msg="toast", ng-if="count > 0")
+  ul.comment-list(comment-scroll-watching)
+    li.comment-item(ng-repeat='comment in comments', ng-class="{'new-item': comment.new || false}", data-id='{{comment._id}}', data-shopid='{{comment.shopId}}')
+      div.content.clearfix(ng-bind-html='renderHtml(comment.content)')
+      div.other-meta
+        div.user-submit.clearfix
+          div.reveal
+            a(href='http://www.dianping.com/member/{{comment.rev.userId}}', target='_blank')
+              img.avatar(ng-src='{{comment.rev.avatar}}')
+              div.reveal-name {{comment.rev.name}}
+          div.rate
+            div.rate-star {{comment.star}} 星
+            div.tags
+              span.tag 团
+            ul.rsts
+              li.rst(ng-repeat='rst in comment.rst')
+                span {{rst.title}}：{{rst.star}}
+        div.shop-meta
+          div.shop-name {{shops[comment.shopId].name}}
+          div.shop-comment
+            span.shop-price(ng-show='shops[comment.shopId].price.hasOwnProperty("value")') {{shops[comment.shopId].price.unit}}{{shops[comment.shopId].price.value}}
+            span.rate-star {{shops[comment.shopId].star}} 星 {{shops[comment.shopId].commentNums}} 条点评
+          ul.tags
+            li.tag(ng-repeat='tag in shops[comment.shopId].tags')
+              span {{tag.label}}
+          div.shop-address {{shops[comment.shopId].address}}
+          //- img.shop-preview(ng-src='{{shops[comment.shopId].img}}')
+
