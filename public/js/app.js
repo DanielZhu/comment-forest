@@ -17,7 +17,7 @@ app.directive('commentScrollWatching', function ($window) {
           && commentElOffsetTop + commentElHeight < scrolledHeight + viewportHeight) {
           // (function(){
             scope.count > 0 && scope.count--;
-            scope.updateToastMsg();
+            scope.updateToastMsg(scope.count + ' new');
             value.new = false;
             scope.$apply();
           // })();
@@ -44,9 +44,10 @@ app.controller('MainCtrl', ['$scope', '$sce', '$interval', '$http', function($sc
         $scope.shops[item._id] = item;
       });
       $scope.count += response.data.commentList.length;
-      $scope.updateToastMsg();
+      $scope.updateToastMsg($scope.count + ' loaded');
       setTimeout(function () {
         $scope.count = 0;
+        $scope.$apply();
       }, 1500);
       $scope.setupWebSocket();
     }, function errorCallback(response) {
@@ -61,11 +62,11 @@ app.controller('MainCtrl', ['$scope', '$sce', '$interval', '$http', function($sc
 
   $scope.newItemNotify = function(newItem) {
     $scope.comments.splice(0, 0, newItem);
-  }
+  };
 
-  $scope.updateToastMsg = function () {
-    $scope.toast = $scope.count + ' new';
-  }
+  $scope.updateToastMsg = function (msg) {
+    $scope.toast = msg;
+  };
 
   $scope.setupWebSocket = function () {
     // if user is running mozilla then use it's built-in WebSocket
@@ -113,7 +114,7 @@ app.controller('MainCtrl', ['$scope', '$sce', '$interval', '$http', function($sc
         var listElHeight = $('body').height();
 
         $scope.count += response.commentList.length;
-        $scope.updateToastMsg();
+        $scope.updateToastMsg($scope.count + ' new');
         $scope.$apply();
 
         var newListElHeight = $('body').height();
