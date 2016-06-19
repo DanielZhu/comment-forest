@@ -3,16 +3,31 @@ var express = require('express');
 var router = express.Router();
 
 var DpShopCommentModel = require('../lib/model/DpShopCommentModel');
+var DpShopModel = require('../lib/model/DpShopModel');
 // var nuomi = require('../lib/nuomi');
+var eventEmitter = null;
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  var promise = DpShopCommentModel.findLatestByLimit();
-  promise.addBack(function (err, docs) {
-    res.send(JSON.stringify(docs));
+router.get('/topsList', function (req, res, next) {
+  var filters = [];
+  var commentList = [];
+  DpShopCommentModel.fetchTops(filters).then(function (docs) {
+    var commentIds = [];
+    commentList = docs;
+    if (docs) {
+       commentIds = docs.map(function (m) {
+        return m.shopId;
+      });
+       commentIds = commentIds.unique();
+    }
+
+    return DpShopModel.findShopsByIds(commentIds);
+  }).then(function (shops) {
+    res.send(JSON.stringify({
+      shops: shops,
+      commentList: commentList
+    }));
   });
 });
-
 /* GET users listing. */
 // router.get('/nuomi', function (req, res, next) {
 //   nuomi();
@@ -31,4 +46,11 @@ router.get('/', function (req, res, next) {
 //   res.send('Got a DELETE request at /spider');
 // });
 
-module.exports = router;
+function initEventEmitter(ee) {
+  eventEmitter = ee;
+}
+
+module.exports = {
+  router: router,
+  initEventEmitter: initEventEmitter
+};
