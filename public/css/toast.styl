@@ -2,17 +2,39 @@
 
 .global-toast
   position: fixed
-  bottom: 0
-  left: 0
-  min-width: 120px
+  right: 10px
+  // min-width: 120px
   background-color: #5bb75b
   text-align: right
   z-index: 10000
-  margin: 10px
+  margin-top: 10px
   line-height: 1.2
-  padding: 15px 10px
+  padding: 12px 20px
   box-sizing: border-box
   .toast-text
     text-align: right
     font-size: 14px
     color: #fff
+
+/* The starting CSS styles for the enter animation */
+.toast.ng-enter
+  transition: .2s all ease-in
+  opacity: 0
+  top: -55px
+
+/* The finishing CSS styles for the enter animation */
+.toast.ng-enter.ng-enter-active
+  transition: .2s all ease-in
+  opacity: .9
+  top: 0px
+
+/* now the element will toast out before it is removed from the DOM */
+.toast.ng-leave {
+  transition: .2s linear all;
+  opacity: .9
+  top: 0px
+}
+.toast.ng-leave.ng-leave-active {
+  opacity: 0;
+  top: -55px;
+}
