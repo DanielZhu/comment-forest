@@ -21,7 +21,7 @@
     "jquery": "^3.0.0",
     "mongoose": "^4.4.19",
     "morgan": "~1.6.1",
-    "node-spider-man": "file:../node-spider-man",
+    "node-spider-man": "^0.2.1",
     "promise": "^7.1.1",
     "pug": "^2.0.0-beta3",
     "request": "^2.72.0",

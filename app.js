@@ -44,7 +44,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 var eventEmitter = new events.EventEmitter();
 
 var commentInserted = function commentInserted(commentList) {
-  console.log('### commentInserted emitted...');
   var commentIds = [];
   if (commentList) {
      commentIds = commentList.map(function (m) {
@@ -100,10 +99,6 @@ app.use(function (err, req, res, next) {
   });
 });
 
-// start the dianping spider
-// var dpSpider = require('./lib/dpSpider');
-// dpSpider();
-
 app.initSocket = function (wss) {
   wsServer = wss;
 
@@ -126,12 +121,16 @@ app.initSocket = function (wss) {
       console.log(new Date() + 'Peer ' + conn.remoteAddress + ' disconnected.');
     });
   });
+
+  // start the dianping spider
+  var dpSpider = require('./lib/dpSpider');
+  dpSpider(eventEmitter);
 };
 
-setInterval(function () {
-  DpShopCommentModel.fetchTops({limited: 3}).then(function (docs) {
-    eventEmitter.emit('commentInserted', docs);
-  });
-}, 1000 * 3);
+// setInterval(function () {
+//   DpShopCommentModel.fetchTops({limited: 3}).then(function (docs) {
+//     eventEmitter.emit('commentInserted', docs);
+//   });
+// }, 1000 * 5);
 
 module.exports = app;
