@@ -2,6 +2,13 @@
 
 This is the POC for my learning
 
+## Online demos
+
+Visit `http://staydan.xyz:3001/list`, but it looks like the new remote server needs more modifications. 
+- nginx configurations update
+- merge two spider into one, so that the comment spider doesn't need to wait for the shop spider finished.
+- because of the limitation of dianping.com, needs more ways to get shops.
+
 ## Techs
 
 - Use [node-spider-man](https://github.com/DanielZhu/node-spider-man) to fetch data from the internet
