@@ -21,7 +21,11 @@ Visit `http://staydan.xyz:3001/list`, but it looks like the new remote server ne
 
 #### Start the server
 
+`nohup node ./bin/www &`
+`tail -f nohup.out`
+
 `DEBUG=comment-forest:* npm start` 
+
 
 Visit `http://localhost:3001/list`
 
